@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import FacebookLogin from 'react-facebook-login';
 
 class App extends Component {
   state = {users: []}
@@ -10,9 +11,20 @@ class App extends Component {
       .then(users => this.setState({ users }));
   }
 
+  responseFacebook(response) {
+    this.setState({users: [{'id': 1, 'username': response.name}]});
+    console.log(response);
+  }
+
   render() {
     return (
       <div className="App">
+        <FacebookLogin
+            appId="1136085733193121"
+            autoLoad={true}
+            fields="name,email,picture"
+            callback={this.responseFacebook.bind(this)}
+             />
         <h1>Users</h1>
         {this.state.users.map(user =>
           <div key={user.id}>{user.username}</div>
