@@ -21,7 +21,28 @@
 .App-intro {
   font-size: large;
 }
-
+.btn{
+    font-size: 32px;
+    border-radius: 25%;
+    color: #DDA0DD;
+}
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+.left {
+  grid-column: 2/3;
+  grid-row: 4;
+}
+.right {
+  grid-column: 2/4;
+  grid-row: 4;
+}
+.top{
+    grid-row: 2;
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
