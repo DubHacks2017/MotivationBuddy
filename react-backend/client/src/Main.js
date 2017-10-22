@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
-<<<<<<< HEAD
 import Modal from './Modal';
 import './App.css';
-||||||| merged common ancestors
 import './App.css';
-=======
 import ReactDOM from 'react-dom';
 import {Table, Column, Cell} from 'fixed-data-table-2';
->>>>>>> made table
 import FacebookLogin from 'react-facebook-login';
 import './App.css';
 
@@ -51,17 +47,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
-<<<<<<< HEAD
     fetch('/goals?uid=' + this.props.uid)
-||||||| merged common ancestors
-    fetch('/goals?uid=' + this.props.id)
-=======
-    // fetch('/goals?uid=' + this.props.id)
-    //   .then(res => res.json())
-    //   .then(goals => this.setState({ goals }));
-
-    fetch('/goals?uid=' + '10203833289708885')
->>>>>>> made table
       .then(res => res.json())
       .then(goals => this.setState({ goals }));
 
@@ -79,7 +65,6 @@ class Main extends Component {
 
   render() {
 
-    console.log(rows);
     return (
       <div className="Main">
       <table data-table="col-four">
@@ -89,6 +74,7 @@ class Main extends Component {
       <th>Goal Partner</th>
       <th>Reward</th>
       <th>Points</th>
+      <th>Deadline</th>
     </tr>
   </thead>
   <tbody>
@@ -98,13 +84,11 @@ class Main extends Component {
           <td data-heading="Goal Partner">{goal.recipient_fb_uid}</td>
           <td data-heading="Reward">{goal.reward}</td>
           <td data-heading="Points">{goal.points}</td>
+          <td data-heading="Deadline">{goal.deadline}</td>
           </tr>
         )}
          </tbody>
 </table>
-        </div>
-        )}
-<<<<<<< HEAD
         <div>
           <button type="submit" className="btn btn-primary" onClick={() => this.togglePersonalModal()}>Add Personal Goal</button>
           <Modal isOpen={this.state.isPersonalModalOpen} onClose={() => this.togglePersonalModal()}>
@@ -137,12 +121,6 @@ class Main extends Component {
   toggleCommonModal() {
       this.setState({ isCommonModalOpen: !this.state.isCommonModalOpen })
   }
-||||||| merged common ancestors
-      </div>
-    )
-  }
-=======
->>>>>>> made table
 }
 
 export default Main;
