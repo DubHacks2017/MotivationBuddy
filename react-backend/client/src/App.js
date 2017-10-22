@@ -26,11 +26,17 @@ class App extends Component {
             scope="user_friends"
             callback={this.responseFacebook.bind(this)}
              />
-        <h1>Users</h1>
-        {this.state.users.map(user =>
-          <div key={user.id}>{user.username}</div>
-        )}
-      </div>
+        <h1> Welcome, {this.state.users.map(user => <span key={user.id}>{user.username}</span>)}!</h1>
+        <div className="wrapper">
+            <div className="left">
+                <button type="submit" className="btn btn-primary">Add Personal Goal</button>
+            </div>
+            <div className="right">
+                <button type="submit" className="btn btn-primary">Add Common Goal</button>
+            </div>
+        </div>
+
+        </div>
     );
   }
 }
