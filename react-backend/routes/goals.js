@@ -24,6 +24,7 @@ router.get("/", function(req, res, next) {
       if(err) {
         return console.log(err);
       }
+      console.log(rows);
       res.json(rows);
     });
   });

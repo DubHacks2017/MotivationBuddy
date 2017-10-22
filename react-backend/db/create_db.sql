@@ -46,3 +46,5 @@ CREATE TABLE COMPLETED_GOALS(
 	FOREIGN KEY(recipient_fb_uid) references USERS(fb_uid),
 	PRIMARY KEY(goal_id)
 );
+
+INSERT INTO GOALS VALUES(1, 10203833289708885, 2, "lose 5 lbs", 0, '2017-07-20', 17, "$20 dinner for 2");
