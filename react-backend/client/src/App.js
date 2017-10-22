@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   responseFacebook(response) {
-    this.setState({users: [{'id': 1, 'username': response.name}]});
+    this.setState({users: [{'id': 3, 'username': response.name}]});
     console.log(response);
   }
 
@@ -20,9 +20,10 @@ class App extends Component {
     return (
       <div className="App">
         <FacebookLogin
-            appId="1136085733193121"
+            appId="1373783556053048"
             autoLoad={true}
             fields="name,email,picture"
+            scope="user_friends"
             callback={this.responseFacebook.bind(this)}
              />
         <h1>Users</h1>
