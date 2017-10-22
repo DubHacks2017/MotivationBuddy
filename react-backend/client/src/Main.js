@@ -1,21 +1,15 @@
 import React, {Component} from 'react';
 import Modal from './Modal';
 import './App.css';
-import './App.css';
 import ReactDOM from 'react-dom';
 import {Table, Column, Cell} from 'fixed-data-table-2';
+import 'fixed-data-table-2/dist/fixed-data-table.css';
 import FacebookLogin from 'react-facebook-login';
-import './App.css';
 
 var createReactClass = require('create-react-class');
 
 
-const rows = [
-  "first row",
-  "second row",
-  "third row"
-  // .... and more
-];
+var rows = [];
 
 // Custom cell implementation with special prop
 const MyCustomCell = ({ mySpecialProp }) =>
@@ -47,7 +41,8 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    fetch('/goals?uid=' + this.props.uid)
+    //this.state.goals
+    fetch('/goals?uid=' + '10203833289708885')
       .then(res => res.json())
       .then(goals => this.setState({ goals }));
 
@@ -65,30 +60,92 @@ class Main extends Component {
 
   render() {
 
+    var goalsArray = this.state.goals.map( Object.values );
+
+// console.log(this.rows);
+//     this.state.goals.forEach((x) => {
+//   var tempArray = [];
+//   Object.keys(x).forEach((y) => {
+//     tempArray.push(y);
+//   }
+//   this.rows.push(tempArray);
+
+//   console.log(tempArray);
+// }
+
+// console.log(this.rows);
     return (
       <div className="Main">
-      <table data-table="col-four">
-  <thead>
-    <tr>
-      <th>Goal</th>
-      <th>Goal Partner</th>
-      <th>Reward</th>
-      <th>Points</th>
-      <th>Deadline</th>
-    </tr>
-  </thead>
-  <tbody>
-         {this.state.goals.map(goal =>
-          <tr key={goal.goal_id}>
-          <td data-heading="Goal">{goal.goal_description}</td>
-          <td data-heading="Goal Partner">{goal.recipient_fb_uid}</td>
-          <td data-heading="Reward">{goal.reward}</td>
-          <td data-heading="Points">{goal.points}</td>
-          <td data-heading="Deadline">{goal.deadline}</td>
-          </tr>
+        
+          <Table
+    rowHeight={50}
+    rowsCount={goalsArray.length}
+    width={800}
+    maxHeight={400}
+    headerHeight={50}>
+    <Column
+      header={<Cell>Goal</Cell>}
+      cell={({rowIndex, ...props}) => (
+        <Cell {...props}>
+          {goalsArray[rowIndex][3]}
+        </Cell>
+      )}
+      width={200}
+    />
+    <Column
+      header={<Cell>Goal Partner</Cell>}
+      cell={({rowIndex, ...props}) => (
+        <Cell {...props}>
+          {goalsArray[rowIndex][2]}
+        </Cell>
+      )}
+      width={150}
+    />
+    <Column
+      header={<Cell>Reward</Cell>}
+      cell={({rowIndex, ...props}) => (
+        <Cell {...props}>
+          {goalsArray[rowIndex][7]}
+        </Cell>
+      )}
+      width={175}
+    />
+    <Column
+      header={<Cell>Points</Cell>}
+      cell={({rowIndex, ...props}) => (
+        <Cell {...props}>
+          {goalsArray[rowIndex][6]}
+        </Cell>
+      )}
+      width={75}
+    />
+    <Column
+      header={<Cell>Deadline</Cell>}
+      cell={({rowIndex, ...props}) => (
+        <Cell {...props}>
+          {goalsArray[rowIndex][5]}
+        </Cell>
+      )}
+      width={100}
+    />
+    <Column
+      header={<Cell>Mark Completed</Cell>}
+      cell={({rowIndex, ...props}) => (
+        <Cell {...props}>
+        <input
+            name="isGoing"
+            type="checkbox"
+            checked={this.state.isGoing}
+            onChange={this.handleInputChange} />
+        </Cell>
         )}
-         </tbody>
-</table>
+      width={100}
+    />
+    
+
+
+  </Table>
+
         <div>
           <button type="submit" className="btn btn-primary" onClick={() => this.togglePersonalModal()}>Add Personal Goal</button>
           <Modal isOpen={this.state.isPersonalModalOpen} onClose={() => this.togglePersonalModal()}>
