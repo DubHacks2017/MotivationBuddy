@@ -5,9 +5,9 @@ DROP TABLE IF EXISTS COMPLETED_GOALS;
 
 
 CREATE TABLE USERS(
-	email TEXT,
-	name TEXT,
 	fb_uid int,
+	name TEXT,
+	email TEXT,
 	PRIMARY KEY(fb_uid)
 );
 

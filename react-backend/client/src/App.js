@@ -17,7 +17,7 @@ class App extends Component {
   responseFacebook(response) {
     this.setState({users: [{'id': 3, 'username': response.name}]});
     console.log(response);
-    ReactDOM.render(<Main name={response.name} email={response.email} id={response.id}/>, document.getElementById('root'));
+    ReactDOM.render(<Main name={response.name} email={response.email} uid={response.id}/>, document.getElementById('root'));
   }
 
   render() {

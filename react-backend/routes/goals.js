@@ -30,4 +30,30 @@ router.get("/", function(req, res, next) {
   });
 });
 
+router.post('/', function(req, res){
+  var email = req.body.email;
+  var uid = req.body.uid;
+  var name = req.body.name;
+
+  if(!uid || !name) {
+    console.log('email: ' + email + " uid: " + uid + ' name: ' + name);
+    return;
+  }
+
+  db.serialize(function() {
+    db.all("SELECT * from USERS WHERE fb_uid = ?", uid, function(err, rows) {
+      if(err){
+        console.log(err);
+        return;
+      }
+      console.log(rows);
+      if(rows.length == 0) {
+        db.run("INSERT INTO USERS VALUES(?, ?, ?)", uid, name, email, function(err) {
+          console.log(err);
+        });
+      }
+    })
+  });
+})
+
 module.exports = router;
