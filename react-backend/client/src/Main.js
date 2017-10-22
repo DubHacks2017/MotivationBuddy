@@ -1,7 +1,31 @@
 import React, {Component} from 'react';
+<<<<<<< HEAD
 import Modal from './Modal';
 import './App.css';
+||||||| merged common ancestors
+import './App.css';
+=======
+import ReactDOM from 'react-dom';
+import {Table, Column, Cell} from 'fixed-data-table-2';
+>>>>>>> made table
 import FacebookLogin from 'react-facebook-login';
+import './App.css';
+
+var createReactClass = require('create-react-class');
+
+
+const rows = [
+  "first row",
+  "second row",
+  "third row"
+  // .... and more
+];
+
+// Custom cell implementation with special prop
+const MyCustomCell = ({ mySpecialProp }) =>
+  <Cell>
+    {mySpecialProp === "column2" ? "I'm column 2" : "I'm not column 2"}
+  </Cell>;
 
 class Main extends Component {
   state = {goals: [],
@@ -27,19 +51,60 @@ class Main extends Component {
   }
 
   componentDidMount() {
+<<<<<<< HEAD
     fetch('/goals?uid=' + this.props.uid)
+||||||| merged common ancestors
+    fetch('/goals?uid=' + this.props.id)
+=======
+    // fetch('/goals?uid=' + this.props.id)
+    //   .then(res => res.json())
+    //   .then(goals => this.setState({ goals }));
+
+    fetch('/goals?uid=' + '10203833289708885')
+>>>>>>> made table
       .then(res => res.json())
       .then(goals => this.setState({ goals }));
+
+    // console.log(this);
   }
 
+
+  //ReactDOM.render(<Main name={response.name} email={response.email} id={response.id}/>, document.getElementById('welcome-div'));
+
+// Welcome {this.props.name} your email is {this.props.email}
+// <div className="Main">
+// </div>
+
+
+
   render() {
+
+    console.log(rows);
     return (
       <div className="Main">
-        Welcome {this.props.name} your email is {this.props.email}
-
-        {this.state.goals.map(goal =>
-          <div key={goal.goal_id}>{goal.goal_description} with {goal.recipient_fb_uid} having reward {goal.reward} and {goal.points} points</div>
+      <table data-table="col-four">
+  <thead>
+    <tr>
+      <th>Goal</th>
+      <th>Goal Partner</th>
+      <th>Reward</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
+         {this.state.goals.map(goal =>
+          <tr key={goal.goal_id}>
+          <td data-heading="Goal">{goal.goal_description}</td>
+          <td data-heading="Goal Partner">{goal.recipient_fb_uid}</td>
+          <td data-heading="Reward">{goal.reward}</td>
+          <td data-heading="Points">{goal.points}</td>
+          </tr>
         )}
+         </tbody>
+</table>
+        </div>
+        )}
+<<<<<<< HEAD
         <div>
           <button type="submit" className="btn btn-primary" onClick={() => this.togglePersonalModal()}>Add Personal Goal</button>
           <Modal isOpen={this.state.isPersonalModalOpen} onClose={() => this.togglePersonalModal()}>
@@ -72,6 +137,47 @@ class Main extends Component {
   toggleCommonModal() {
       this.setState({ isCommonModalOpen: !this.state.isCommonModalOpen })
   }
+||||||| merged common ancestors
+      </div>
+    )
+  }
+=======
+>>>>>>> made table
 }
 
 export default Main;
+
+
+        
+
+
+  //               <div className="Main">
+
+  // <Table
+  //   rowHeight={50}
+  //   headerHeight={50}
+  //   rowsCount={rows.length}
+  //   width={800}
+  //   height={500}>
+  //   <Column
+  //     header={<Cell>Col 1</Cell>}
+  //     cell={<Cell>Column 1 static content</Cell>}
+  //     width={200}
+  //   />
+  //   <Column
+  //     header={<Cell>Col 2</Cell>}
+  //     cell={<MyCustomCell mySpecialProp="column2" />}
+  //     width={200}
+  //   />
+  //   <Column
+  //     header={<Cell>Col 3</Cell>}
+  //     cell={({rowIndex, ...props}) => (
+  //       <Cell {...props}>
+  //         Data for column 3: {rows[rowIndex]}
+  //       </Cell>
+  //     )}
+  //     width={200}
+  //   />
+  // </Table>
+
+  //       </div>

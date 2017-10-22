@@ -1,3 +1,28 @@
+html, body {
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: grid;
+  grid-template-rows: 150px auto 100px;
+  grid-template-columns: minmax(200px, 3fr) 9fr;
+  grid-template-areas: "header header"
+                      "nav    content"
+                      "nav    footer";
+}
+header {
+  grid-column: 1 / 3;
+}
+nav {
+  grid-row: 2 / span 2;
+}
+
+.test-head {
+  font-size: 4rem;
+}
+
 .App {
   text-align: center;
 }
@@ -25,4 +50,9 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+
+table, th, td {
+   border: 1px solid black;
 }
