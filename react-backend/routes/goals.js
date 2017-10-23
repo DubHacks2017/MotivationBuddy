@@ -3,9 +3,45 @@ var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database("db/motivation_buddy.db", sqlite3.OPEN_READWRITE, function(err) {
   if (err) {
-    return console.error(err.message);
+    return console.log(err.message);
   }
   console.log('init the DB');
+});
+
+router.post("/", function(req, res) {
+  var desc = req.body.personalGoal;
+  var requester_uid = req.body.requester_uid;
+  var buddy_id = req.body.buddy_id;
+  var date = req.body.date;
+  var points = req.body.points;
+  var reward = req.body.reward;
+
+  if(!desc || !buddy_id || !date || !(points || reward)) {
+    console.log('desc: ' + desc + ' buddy_id: ' + buddy_id
+    + ' date: ' + date + ' points: ' + points + ' reward: ' + reward);
+    return;
+  }
+
+  db.serialize(function() {
+    db.all("SELECT MAX(goal_id) AS max FROM GOALS", function(err, rows) {
+      if(err) {
+        console.log(err);
+        return;
+      }
+      var nextGoalId = 1;
+      if(rows) {
+        console.log('Rows = ' + rows);
+        nextGoalId = rows[0].max + 1;
+      }
+      var params = [nextGoalId, requester_uid, buddy_id, desc, 0, date, points, reward];
+      db.run("INSERT INTO goals VALUES(?, ?, ?, ?, ?, ?, ?, ?)", params, function(err) {
+        if(err) {
+          console.log(err);
+        }
+      })
+    });
+  });
+
 });
 
 
@@ -30,30 +66,5 @@ router.get("/", function(req, res, next) {
   });
 });
 
-router.post('/', function(req, res){
-  var email = req.body.email;
-  var uid = req.body.uid;
-  var name = req.body.name;
-
-  if(!uid || !name) {
-    console.log('email: ' + email + " uid: " + uid + ' name: ' + name);
-    return;
-  }
-
-  db.serialize(function() {
-    db.all("SELECT * from USERS WHERE fb_uid = ?", uid, function(err, rows) {
-      if(err){
-        console.log(err);
-        return;
-      }
-      console.log(rows);
-      if(rows.length == 0) {
-        db.run("INSERT INTO USERS VALUES(?, ?, ?)", uid, name, email, function(err) {
-          console.log(err);
-        });
-      }
-    })
-  });
-})
 
 module.exports = router;
