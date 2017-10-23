@@ -77,16 +77,11 @@ class Main extends Component {
   }
 
   componentDidMount() {
-<<<<<<< HEAD
-    //this.state.goals
-    fetch('/goals?uid=' + '10203833289708885')
-=======
     this.updateGoals();
   }
 
   updateGoals() {
     fetch('/goals?uid=' + this.props.uid)
->>>>>>> Fixed creating a new goal
       .then(res => res.json())
       .then(goals => this.setState({ goals }));
 
@@ -120,7 +115,7 @@ class Main extends Component {
 // console.log(this.rows);
     return (
       <div className="Main">
-        
+
           <Table
     rowHeight={50}
     rowsCount={goalsArray.length}
@@ -185,7 +180,7 @@ class Main extends Component {
         )}
       width={100}
     />
-    
+
 
 
   </Table>
@@ -260,7 +255,7 @@ class ModalInput extends Component {
 export default Main;
 
 
-        
+
 
 
   //               <div className="Main">
